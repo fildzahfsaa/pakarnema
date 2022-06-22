@@ -16,6 +16,17 @@
                                     <option value="<?php echo $p->kode_penyakit; ?>"> <?php echo $p->nama_penyakit; ?></option>
                                 <?php endforeach ?>
                             </select>
+                            <br>
+                            <label for="nama_gejala">Nama Gejala</label>
+                                <select class="form-control" id="nama_gejala" name="nama_gejala">
+                                    <?php foreach($gejala as $g): ?>
+                                        <option value="<?php echo $g->kode_gejala; ?>"> <?php echo $g->nama_gejala; ?></option>
+                                    <?php endforeach ?> 
+                                </select>
+                            <br>
+                            <label for="bobot_pakar">Bobot</label>
+                            <input type="text" class="form-control" id="bobot_pakar" name="bobot_pakar" placeholder="Bobot Pakar">
+                            
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     </form>

@@ -10,9 +10,9 @@
 
 
         <!-- Navbar & Hero Start -->
-        <div class="container-xxl position-relative p-0" style="margin-bottom: -3rem !important;">
+        <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
+                <a href="./" class="navbar-brand p-0">
                     <h1 class="text-primary m-0"><i class="fa fa-leaf"></i> Pakarnema</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
@@ -21,7 +21,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="" class="nav-item nav-link active">Home</a>
+                        <a href="./" class="nav-item nav-link">Home</a>
                         <a href="About" class="nav-item nav-link">About</a>
                         <a href="Daftar" class="nav-item nav-link">Daftar Hama Penyakit</a>
                         <!-- <a href="Kontak" class="nav-item nav-link">Kontak</a> -->
@@ -31,18 +31,28 @@
             </nav>
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container my-5 py-5">
-                    <div class="row align-items-center g-5">
-                        <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="display-3 text-white animated slideInLeft">Diagnosa<br>Sekarang!</h1>
-                            <p class="text-white animated slideInLeft mb-4 pb-2">Cari tahu jenis hama penyakit yang dialami oleh Aglaonema milikmu</p>
-                            <a href="Diagnosa" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">DIAGNOSA</a>
-                        </div>
-                        <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                            <img class="img-fluid" src="<?php echo base_url(); ?>assets/img/hero.png" alt="">
-                        </div>
-                    </div>
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Mulai Diagnosa</h1>
                 </div>
             </div>
         </div>
         <!-- Navbar & Hero End -->
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                <span style="font-weight: bold;"> Pilih Gejala </span>
+                    <div class="col-md-12 col-md-offset-2"> 
+                    <?php
+                        $this->load->model(array('Model_gejala'));
+                        $listGejala = $this->Model_gejala->getAllgejala();
+                        foreach($listGejala->result() as $value2){ ?>
+                        <input type="checkbox" style="width: fit-content; margin-right: 10px;" name="gejala[]" value="<?php echo $value2->kode_gejala?>" ><?php echo $value2->kode_gejala." - ".$value2->nama_gejala?> <br>
+                    <?php }?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->

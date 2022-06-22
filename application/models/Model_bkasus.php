@@ -13,6 +13,12 @@ class Model_bkasus extends CI_Model
         return $query->result_array();
     }
 
+    public function getIdbkasus(){
+		$query = $this->db->query("SELECT MAX(id_bkasus) as idbkasus from basiskasus");
+		$hasil = $query->row();
+		return $hasil->idbkasus;
+    }
+
     public function tambahbkasus()
     {
         $data = 
@@ -22,19 +28,16 @@ class Model_bkasus extends CI_Model
         $this->db->insert('basiskasus', $data);
     }
 
-    public function hapus_bkasus($id)
+    public function tambah_Dbkasus()
     {
-        return $this->db->delete('basiskasus', array("id_bkasus" => $id));
-	}
+        $data = 
+        [
+            'id_bkasus' => $this->getIdbkasus(),
+            'kode_gejala'=> $this->input->post('nama_gejala',true),
+            'bobot_pakar'=> $this->input->post('bobot_pakar'),
+        ];
 
-    public function getdbkasusByID($id_bkasus){
-		$this->db->select('*');
-        $this->db->from('detail_basiskasus');
-        $this->db->join('basiskasus', 'basiskasus.id_bkasus = detail_basiskasus.id_bkasus');
-        $this->db->join('gejala', 'gejala.kode_gejala = detail_basiskasus.kode_gejala');
-        $this->db->where('basiskasus.id_bkasus', $id_bkasus);
-        // $this->db->order_by("detail_basiskasus.id_bkasus", "ASC");
-		return $this->db->get()->result_array();
+         $insert =$this->db->insert('detail_basiskasus', $data);
     }
 
     public function tambahDbkasus()
@@ -52,6 +55,23 @@ class Model_bkasus extends CI_Model
     {
         return $this->db->delete('detail_basiskasus', array("id_dbkasus" => $id));
 	}
+
+    public function hapus_bkasus($id)
+    {
+        return $this->db->delete('basiskasus', array("id_bkasus" => $id));
+	}
+
+    public function getdbkasusByID($id_bkasus){
+		$this->db->select('*');
+        $this->db->from('detail_basiskasus');
+        $this->db->join('basiskasus', 'basiskasus.id_bkasus = detail_basiskasus.id_bkasus');
+        $this->db->join('gejala', 'gejala.kode_gejala = detail_basiskasus.kode_gejala');
+        $this->db->where('basiskasus.id_bkasus', $id_bkasus);
+        // $this->db->order_by("detail_basiskasus.id_bkasus", "ASC");
+		return $this->db->get()->result_array();
+    }
+
+    
 
     public function hitungTotalbkasus()
     {   

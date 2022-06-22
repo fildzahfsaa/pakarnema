@@ -111,7 +111,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <i class="icon-grid-2 menu-icon"></i>
+              <i class="icon-grid-2 menu-icon "></i>
               <span class="menu-title">Konsultasi</span>
             </a>
           </li>

@@ -206,8 +206,11 @@ class Admin extends CI_Controller {
     {
         $data['bkasus'] = $this->Model_bkasus->getAlldatabkasus();
         $data['penyakit'] = $this->Model_penyakit->fetch_penyakit();
+        $data['gejala'] = $this->Model_gejala->fetch_gejala();
 
         $this->form_validation->set_rules('nama_penyakit', 'nama_penyakit', 'required');
+        $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');
+        $this->form_validation->set_rules('bobot_pakar', 'bobot_pakar', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/Header_admin');
@@ -223,6 +226,7 @@ class Admin extends CI_Controller {
                 $this->load->view('layout/Footer_admin');
             }else{
                 $this->Model_bkasus->tambahbkasus();
+                $this->Model_bkasus->tambah_Dbkasus();
                 echo "<script>alert('Anda berhasil menambah data');</script>";
                 redirect($this->uri->uri_string());
             }

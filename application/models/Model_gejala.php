@@ -12,6 +12,13 @@ class Model_gejala extends CI_Model
         return $query->result_array();
     }
 
+    public function getAllgejala()
+    {
+        $this->db->select('*');
+        $this->db->from('gejala');
+        return $this->db->get();
+    }
+
     public function getGejalaByID($kode_gejala)
     {
         return $this->db->get_where('gejala', ['kode_gejala' => $kode_gejala])->row_array();
