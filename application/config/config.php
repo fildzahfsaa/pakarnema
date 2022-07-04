@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8080/Pakarnema/';
+$config['base_url'] = 'http://localhost:8080/Sistem-Pakar/';
 
 /*
 |--------------------------------------------------------------------------
@@ -488,7 +488,7 @@ $config['compress_output'] = FALSE;
 | helper' page of the user guide for information regarding date handling.
 |
 */
-$config['time_reference'] = 'Asia/Jakarta';
+$config['time_reference'] = 'local';
 
 /*
 |--------------------------------------------------------------------------

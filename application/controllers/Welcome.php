@@ -22,19 +22,4 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
-
-	public function percobaan()
-	{
-		echo "ini adalah function percobaan";
-	}
-
-	public function belajar()
-	{
-		echo "Saya belajar CodeIgniter";
-	}
-
-	public function belajar_2()
-	{
-		echo "Saya sedang belajar pemrograman Web Lanjut";
-	}
 }

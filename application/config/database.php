@@ -78,10 +78,10 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'pakarnema',
+	'database' => 'skripsi',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
-	'pconnect' => TRUE,
+	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
 	'cachedir' => '',
@@ -90,7 +90,7 @@ $db['default'] = array(
 	'swap_pre' => '',
 	'encrypt' => FALSE,
 	'compress' => FALSE,
-	'stricton' => TRUE,
+	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
 );
