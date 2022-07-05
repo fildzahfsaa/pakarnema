@@ -152,6 +152,7 @@ class Admin extends CI_Controller {
     {
         $this->form_validation->set_rules('kode_gejala', 'kode_gejala', 'required');
         $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');
+        $this->form_validation->set_rules('bobot_pakar', 'bobot_pakar', 'required');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -178,6 +179,7 @@ class Admin extends CI_Controller {
         $data['gejala'] = $this->Model_gejala->getGejalaByID($kode_gejala);
         $this->form_validation->set_rules('kode_gejala', 'kode_gejala', 'required');
         $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');
+        $this->form_validation->set_rules('bobot_pakar', 'bobot_pakar', 'required');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -204,13 +206,12 @@ class Admin extends CI_Controller {
     //===========================Basis Kasus============================================================
     public function Databkasus()
     {
-        $data['bkasus'] = $this->Model_bkasus->getAlldatabkasus();
+        $data['bkasus'] = $this->Model_bkasus->getAlldatabkasus_penyakit();
         $data['penyakit'] = $this->Model_penyakit->fetch_penyakit();
         $data['gejala'] = $this->Model_gejala->fetch_gejala();
 
         $this->form_validation->set_rules('nama_penyakit', 'nama_penyakit', 'required');
         $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');
-        $this->form_validation->set_rules('bobot_pakar', 'bobot_pakar', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/Header_admin');
@@ -248,15 +249,17 @@ class Admin extends CI_Controller {
     }
 
     //===========================Detail Basis Kasus============================================================
-    public function DataDbkasus($id_bkasus)
+    public function DataDbkasus()
     {
-        $data['detail_bkasus'] = $this->Model_bkasus->getdbkasusByID($id_bkasus);
-        $data['bkasus'] = $this->Model_bkasus->getAlldatabkasus();
-        $data['gejala'] = $this->Model_gejala->fetch_gejala();
+        $id_pengetahuan = $this->uri->segment(3);
 
-        $this->form_validation->set_rules('id_bkasus', 'id_bkasus', 'required');
-        $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');
-        $this->form_validation->set_rules('bobot_pakar', 'bobot_pakar', 'required');
+        // $data['detail_bkasus'] = $this->Model_bkasus->getdbkasusByID($id_bkasus);
+        $data['tampil_dbkasus'] = $this->Model_bkasus->getAlldataDbkasus($id_pengetahuan);
+        $data['gejala'] = $this->Model_gejala->fetch_gejala();
+        $data['penyakit'] = $this->Model_bkasus->getAlldataDbkasus_penyakit($id_pengetahuan);
+
+        $this->form_validation->set_rules('kode_penyakit', 'kode_penyakit', 'required');
+        $this->form_validation->set_rules('kode_gejala', 'kode_gejala', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('layout/Header_admin');

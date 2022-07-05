@@ -8,13 +8,17 @@
                     <h4 class="card-title">Tambah Data Gejala Baru</h4>
                     <form class="forms-sample" action="<?= base_url('Admin/tambah_gejala') ?>" method="post">
                         <div class="table-responsive" style="display: flex;">        
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="kode_gejala">Kode Gejala</label>
                                 <input type="text" class="form-control" id="kode_gejala" name="kode_gejala" placeholder="Kode Gejala">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="nama_gejala">Nama Gejala</label>
                                 <input type="text" class="form-control" id="nama_gejala" name="nama_gejala" placeholder="Nama Gejala">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="bobot_pakar">Bobot</label>
+                                <input type="text" class="form-control" id="bobot_pakar" name="bobot_pakar" placeholder="Bobot Pakar">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -37,6 +41,9 @@
                                     Nama Gejala
                                 </th>
                                 <th>
+                                    Bobot Pakar
+                                </th>
+                                <th>
                                     Aksi
                                 </th>
                             </tr>
@@ -47,6 +54,7 @@
                                 <tr>
                                     <td><?= $ga["kode_gejala"]; ?></td>
                                     <td><?= $ga["nama_gejala"]; ?></td>
+                                    <td><?= $ga["bobot_pakar"]; ?></td>
                                     <td>
                                       <a href="<?= base_url(); ?>Admin/edit_gejala/<?= $ga['kode_gejala']; ?>" class="btn btn-inverse-info btn-icon" title="Edit Data Gejala"><br><i class="ti-pencil" aria-hidden="true"></i></a>
                                       <!-- Button trigger modal -->

@@ -49,6 +49,42 @@
 
     <!-- Template Javascript -->
     <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
+
+    <script type="text/javascript">
+    $('#basis-kasus').hide();
+    $('#gejala-dipilih').hide();
+    $('#hasil-konsul').hide();
+    $('#hide-btn').hide();
+
+    const url = window.location.href.split('/').slice(0, 4).join('/');
+    const pathname = window.location.pathname.split('/')[2];
+    const link = url + '/' + pathname;
+
+    $('.navbar-nav').find('a').each(function() {
+        const href = $(this).attr('href');
+        if (link == href || document.location.href == href) {
+            $(this).parents().addClass("active");
+            $(this).addClass("active");
+            // add class as you need ul or li or a 
+        }
+    });
+
+    function lihathasil() {
+        $('#basis-kasus').show();
+        $('#gejala-dipilih').show();
+        $('#hasil-konsul').show();
+        $('#show-btn').hide();
+        $('#hide-btn').show();
+    }
+
+    function tutuphasil() {
+        $('#basis-kasus').hide();
+        $('#gejala-dipilih').hide();
+        $('#hasil-konsul').hide();
+        $('#show-btn').show();
+        $('#hide-btn').hide();
+    }
+</script>
 </body>
 
 </html>

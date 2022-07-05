@@ -6,7 +6,7 @@ class Model_login extends CI_Model {
 
     function login($username, $password){
         $this->db->select('nama_user, username, password, id_user');
-        $this->db->from('user');
+        $this->db->from('admin');
         $this->db->where('username',$username);
         $this->db->where('password',$password);
         $this->db->limit(1);

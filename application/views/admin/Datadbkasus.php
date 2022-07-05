@@ -7,24 +7,23 @@
                 <div class="card-body">
                     <h4 class="card-title">Tambah Gejala</h4>
                     <form class="forms-sample" action="" method="post">
-                        <div class="form-group col-md-6">
-                            <?php foreach ($detail_bkasus as $bk) : ?>
-                                <input type="hidden" class="form-control" id="id_bkasus" name="id_bkasus" value="<?= $bk['id_bkasus']; ?>">
-                            <?php endforeach ?>
+                        <input type="hidden" class="form-control" id="kode_penyakit" name="kode_penyakit" value="<?php echo $penyakit[0]['kode_penyakit']?>">
+                        <div class="form-group col-md-12">
+                            <input readonly class="form-control" id="nama_penyakit" name="nama_penyakit" value="<?php echo $penyakit[0]['nama_penyakit']?>">
                         </div>
                         <div class="table-responsive" style="display: flex;"> 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label for="nama_gejala">Nama Gejala</label>
-                                <select class="form-control" id="nama_gejala" name="nama_gejala">
+                                <select class="form-control" id="kode_gejala" name="kode_gejala">
                                 <?php foreach($gejala as $g): ?>
                                     <option value="<?php echo $g->kode_gejala; ?>"> <?php echo $g->nama_gejala; ?></option>
                                 <?php endforeach ?> 
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <!-- <div class="form-group col-md-6">
                                 <label for="bobot_pakar">Bobot</label>
                                 <input type="text" class="form-control" id="bobot_pakar" name="bobot_pakar" placeholder="Bobot Pakar">
-                            </div>
+                            </div> -->
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <a href="../Databkasus" class="btn btn-light">Kembali</a>
@@ -53,16 +52,16 @@
                         </thead>
                         <tbody>
                             <?php 
-                            foreach ($detail_bkasus as $dbk) : ?>
+                            foreach ($tampil_dbkasus as $dbk) : ?>
                                 <tr>
                                     <td><?= $dbk["nama_gejala"]; ?></td>
                                     <td><?= $dbk["bobot_pakar"]; ?></td>
                                     <td>
-                                            <a data-toggle="modal" data-target="#exampleModal-<?= $dbk['id_dbkasus']; ?>" class="btn btn-inverse-danger btn-icon"><br><i class="ti-trash" aria-hidden="true"> </i></a>
+                                            <a data-toggle="modal" data-target="#exampleModal-<?= $dbk['id_bkasus']; ?>" class="btn btn-inverse-danger btn-icon"><br><i class="ti-trash" aria-hidden="true"> </i></a>
                                             
                                             <!-- Modal -->
                                             
-                                            <div class="modal fade" id="exampleModal-<?= $dbk['id_dbkasus']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="exampleModal-<?= $dbk['id_bkasus']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -76,7 +75,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding-right: 15px; padding-bottom: 10px; padding-top: 10px;">Batal</button>
-                                                            <button type="button" class="btn btn-primary" style="padding-right: 15px; padding-bottom: 10px; padding-top: 10px;"><a href="<?= base_url(); ?>Admin/hapus_dbkasus/<?= $dbk['id_dbkasus']; ?>">Hapus</a></button>
+                                                            <button type="button" class="btn btn-primary" style="padding-right: 15px; padding-bottom: 10px; padding-top: 10px;"><a href="<?= base_url(); ?>Admin/hapus_dbkasus/<?= $dbk['id_bkasus']; ?>">Hapus</a></button>
                                                         </div>
                                                     </div>
                                                 </div>
