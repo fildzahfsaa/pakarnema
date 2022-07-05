@@ -119,6 +119,30 @@ class Model_konsultasi extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getPengetahuan($tipe, $param = NULL, $limit = NULL)
+    {
+        $this->db->order_by('id_bkasus', 'DESC');
+
+        if ($limit != NULL) {
+            $this->db->limit($limit);
+        }
+
+        if ($tipe == 'all') {
+            $this->db->join('penyakit', 'basiskasus.kode_penyakit = penyakit.kode_penyakit');
+            $this->db->join('gejala', 'basiskasus.kode_gejala = gejala.kode_gejala');
+            return $this->db->get('basiskasus')->result_array();
+        }
+
+        if ($tipe == 'id_bkasus') {
+            return $this->db->get_where('basiskasus', ['id_bkasus' => $param])->row_array();
+        }
+
+        if ($tipe == 'kode_penyakit') {
+            $this->db->join('gejala', 'basiskasus.kode_gejala = gejala.kode_gejala');
+            return $this->db->get_where('basiskasus', ['kode_penyakit' => $param])->result_array();
+        }
+    }
+
 }
 
 ?>

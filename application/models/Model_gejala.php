@@ -69,6 +69,44 @@ class Model_gejala extends CI_Model
             return 0;
         }
     }
+
+    public function getGejala($tipe, $param = NULL, $limit = NULL)
+    {
+        $this->db->order_by('kode_gejala', 'DESC');
+
+        if ($limit != NULL) {
+            $this->db->limit($limit);
+        }
+
+        if ($tipe == 'all') {
+            return $this->db->get('gejala')->result_array();
+        }
+
+        if ($tipe == 'kode_gejala') {
+            return $this->db->get_where('gejala', ['kode_gejala' => $param])->row_array();
+        }
+    }
+
+    public function getHasilGejala($list_gejala) {
+        $this->load->model('Model_kondisi');
+
+        $array_hasil_gejala = array();
+
+        foreach ($list_gejala as $kode_gejala => $id_kondisi) {
+            $gejala_temp = $this->getGejala('kode_gejala', $kode_gejala);
+            $kondisi_temp = $this->Model_kondisi->getAllKondisi('id_kondisi', $id_kondisi);
+            $gejala = array(
+                'kode_gejala' => $gejala_temp['kode_gejala'],
+                'nama_gejala' => $gejala_temp['nama_gejala'],                
+                'nama_kondisi' => $kondisi_temp['nama_kondisi'],                
+            );
+
+            // * menambahkan gejala ke array gejala
+            array_push($array_hasil_gejala, $gejala);
+        }
+
+        return $array_hasil_gejala;
+    }
 }
 
 ?>

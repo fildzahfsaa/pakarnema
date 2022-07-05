@@ -59,6 +59,19 @@ if (!$this->session->userdata('id_user')) {
                 <h5 style="font-weight:lighter; font-size:17px; text-transform:uppercase">
                     Dengan Nilai Analisa Sebasar <span class="text-primary ml-3" style="font-weight:bold"><?= $final[$key]['hasil'] * 100; ?> %</span>
                 </h5>
+                <h5 style="font-weight:lighter; font-size:17px; text-transform:uppercase">
+                <?php
+                    $no = 1;
+                    foreach ($hasil_penyakit as $penyakit) :
+                    if ($no == 1) :
+                ?>
+                    Tingkat akurasi hingga <span class="text-primary ml-3" style="font-weight:bold"><?= number_format($penyakit['nilai_perhitungan'] * 100, 2) . '% (' . number_format($penyakit['nilai_perhitungan'], 4) . ')'; ?></span>
+                <?php
+                    $no++;
+                    endif;
+                endforeach;
+                ?>
+                </h5>
             </div>
         </div>
 

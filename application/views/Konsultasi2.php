@@ -70,6 +70,12 @@ if (!$this->session->userdata('id_user')) {
                         <input type="hidden" name="bobot_pakar[]" value="<?php echo $data['bobot_pakar'] ?>"> -->
 
                         <input type="checkbox" id="gejala[]" name="gejala[]" value="<?php echo $data['kode_gejala'] ?>"><?php echo $data['nama_gejala'] ?>
+                        <select name="kondisi[]" id="">
+                            <option value="0">Pilih Kondisi</option>
+                            <?php foreach ($kondisi as $row_kondisi) : ?>
+                                <option value="<?= $data['kode_gejala'] . '_' . $row_kondisi['id_kondisi']; ?>"><?= $row_kondisi['nama_kondisi']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                         </p>
                     <?php } ?>
                     </div>
