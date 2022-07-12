@@ -4,41 +4,41 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Model_konsultasi extends CI_Model
 {
-    function get_no_user()
-	{
-		$q = $this->db->query("SELECT MAX(id_user) AS id FROM user");
-		$kd = "";
-		if ($q->num_rows() > 0) {
-			foreach ($q->result() as $k) {
-				$tmp = ((int) $k->id) + 1;
-				$kd = $tmp;
-			}
-		} else {
-			$kd = "1";
-		}
-		return $kd;
-	}
 
-    public function simpan_user()
-	{
-		$post = $this->input->post();
-		$data = [
-			"id_user" => $post["id_user"],
-			"nama" => $post["nama"],
-		];
-
-		return $this->db->insert("user", $data);
-	}
-
-    public function save_data($data2)
-	{
-		return $this->db->insert_batch('konsultasi', $data2);
-	}
-
-    public function getPertumbuhan()
+    public function getAlldatakonsultasi()
     {
-        $query = "SELECT tb_klasifikasi.* FROM tb_klasifikasi GROUP BY id_pertumbuhan";
-        return $this->db->query($query)->result_array();
+        $this->db->select('*');
+        $this->db->from('konsultasi');
+        $this->db->join('penyakit', 'penyakit.kode_penyakit = konsultasi.kode_penyakit');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getAlldataDkonsultasi($id_konsultasi)
+    {
+        $this->db->select('*');
+        $this->db->from('konsultasi');
+        $this->db->where('id_konsultasi', $id_konsultasi);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    public function hitungTotalkonsultasi()
+    {   
+        $query = $this->db->get('konsultasi');
+        if($query->num_rows()>0)
+        {
+            return $query->num_rows();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public function insertHasil($data)
+    {
+        return $this->db->insert('konsultasi', $data);
     }
 
     public function getPenyakit()
@@ -53,36 +53,26 @@ class Model_konsultasi extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function getDataKonsul()
-    {
-        $this->db->select('bobot_user');
-        $this->db->from('konsultasi');
-        $this->db->where('id_user', $this->session->userdata('id_user'));
-        $query = $this->db->get();
-        return $query->result();
-    }
+    // public function getDataKonsul()
+    // {
+    //     $this->db->select('bobot_user');
+    //     $this->db->from('konsultasi');
+    //     $this->db->where('id_user', $this->session->userdata('id_user'));
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
 
     public function getGejala($gejala)
     {
-        $getuser = $this->session->userdata('id_user');
+        
         $query = "SELECT gejala.* 
         FROM gejala
-        JOIN konsultasi ON konsultasi.kode_gejala = gejala.kode_gejala
-        WHERE gejala.kode_gejala ='$gejala' AND konsultasi.id_user = '$getuser'";
+        WHERE kode_gejala ='$gejala'";
         return $this->db->query($query)->row_array();
     }
 
     public function getSama($penyakit, $gejala)
     {
-        // $getuser = $this->session->userdata('id_user');
-        // $query = "SELECT basiskasus.*, gejala.bobot_pakar 
-        // FROM basiskasus
-        // JOIN gejala ON gejala.kode_gejala = basiskasus.kode_gejala  
-        // JOIN konsultasi ON konsultasi.kode_gejala = gejala.kode_gejala
-        // WHERE basiskasus.kode_penyakit='$penyakit' AND basiskasus.kode_gejala='$gejala'AND konsultasi.id_user = '$getuser'";
-
-        // return $this->db->query($query)->row_array();
-
         $query = "SELECT basiskasus.*, gejala.bobot_pakar 
         FROM basiskasus
         JOIN gejala ON gejala.kode_gejala = basiskasus.kode_gejala  

@@ -7,11 +7,7 @@ class Admin extends CI_Controller {
         $this->load->model('Model_penyakit');
         $this->load->model('Model_gejala');
         $this->load->model('Model_bkasus');
-
-        //validasi level
-        // if($this->session->userdata('level')!="admin"){
-        //     redirect('login','refresh');
-        // }
+        $this->load->model('Model_konsultasi');
     }
     public function index()
     {
@@ -19,6 +15,7 @@ class Admin extends CI_Controller {
         $data['total_gejala'] = $this->Model_gejala->hitungTotalgejala();
         $data['total_penyakit'] = $this->Model_penyakit->hitungTotalpenyakit();
         $data['total_bkasus'] = $this->Model_bkasus->hitungTotalbkasus();
+        $data['total_konsultasi'] = $this->Model_konsultasi->hitungTotalkonsultasi();
 
         $this->load->view('layout/Header_admin');
         $this->load->view('admin/Index', $data);
@@ -28,10 +25,10 @@ class Admin extends CI_Controller {
     //===========================Pakar============================================================
     public function tambah_pakar()
     {
-        $this->form_validation->set_rules('nama_user', 'nama_user', 'required');
+        $this->form_validation->set_rules('nama_admin', 'nama_admin', 'required');
         $this->form_validation->set_rules('username', 'username', 'required');
         $this->form_validation->set_rules('password', 'password', 'required');
-        $this->form_validation->set_rules('level', 'level', 'required');
+        // $this->form_validation->set_rules('level', 'level', 'required');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -44,13 +41,13 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function edit_pakar($id_user)
+    public function edit_pakar($id_admin)
     {
-        $data['pakar'] = $this->Model_pakar->getUserByID($id_user);
-        $this->form_validation->set_rules('nama_user', 'nama_user', 'required');
+        $data['pakar'] = $this->Model_pakar->getUserByID($id_admin);
+        $this->form_validation->set_rules('nama_admin', 'nama_admin', 'required');
         $this->form_validation->set_rules('username', 'username', 'required');
         $this->form_validation->set_rules('password', 'password', 'required');
-        $this->form_validation->set_rules('level', 'level', 'required');
+        // $this->form_validation->set_rules('level', 'level', 'required');
 
         if($this->form_validation->run() == FALSE)
         {
@@ -58,7 +55,7 @@ class Admin extends CI_Controller {
             $this->load->view('admin/Editpakar', $data);
             $this->load->view('layout/Footer_admin');
         } else {
-            $this->Model_pakar->edit_pakar($id_user);
+            $this->Model_pakar->edit_pakar($id_admin);
             echo "<script>alert('Anda berhasil update data');</script>";
             redirect('Admin/index', 'refresh');
         }
@@ -207,46 +204,47 @@ class Admin extends CI_Controller {
     public function Databkasus()
     {
         $data['bkasus'] = $this->Model_bkasus->getAlldatabkasus_penyakit();
-        $data['penyakit'] = $this->Model_penyakit->fetch_penyakit();
-        $data['gejala'] = $this->Model_gejala->fetch_gejala();
+        // $data['penyakit'] = $this->Model_penyakit->fetch_penyakit();
+        // $data['gejala'] = $this->Model_gejala->fetch_gejala();
 
-        $this->form_validation->set_rules('nama_penyakit', 'nama_penyakit', 'required');
-        $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');
+        $this->load->view('layout/Header_admin');
+        $this->load->view('admin/Databkasus', $data);
+        $this->load->view('layout/Footer_admin');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('layout/Header_admin');
-            $this->load->view('admin/Databkasus', $data);
-            $this->load->view('layout/Footer_admin');
-        } else {
-            $cek1 = $this->db->query("SELECT * FROM basiskasus where kode_penyakit='".$this->input->post('nama_penyakit')."'");
+        // if ($this->form_validation->run() == FALSE) {
+        //     $this->load->view('layout/Header_admin');
+        //     $this->load->view('admin/Databkasus', $data);
+        //     $this->load->view('layout/Footer_admin');
+        // } else {
+        //     $cek1 = $this->db->query("SELECT * FROM basiskasus where kode_penyakit='".$this->input->post('nama_penyakit')."'");
             
-            if($cek1->num_rows()>=1){
-                echo "<script>alert('Maaf gagal input data, Data sudah ada,..');</script>";
-                $this->load->view('layout/Header_admin');
-                $this->load->view('admin/Databkasus', $data);
-                $this->load->view('layout/Footer_admin');
-            }else{
-                $this->Model_bkasus->tambahbkasus();
-                $this->Model_bkasus->tambah_Dbkasus();
-                echo "<script>alert('Anda berhasil menambah data');</script>";
-                redirect($this->uri->uri_string());
-            }
-        }
+        //     if($cek1->num_rows()>=1){
+        //         echo "<script>alert('Maaf gagal input data, Data sudah ada,..');</script>";
+        //         $this->load->view('layout/Header_admin');
+        //         $this->load->view('admin/Databkasus', $data);
+        //         $this->load->view('layout/Footer_admin');
+        //     }else{
+        //         $this->Model_bkasus->tambahbkasus();
+        //         $this->Model_bkasus->tambah_Dbkasus();
+        //         echo "<script>alert('Anda berhasil menambah data');</script>";
+        //         redirect($this->uri->uri_string());
+        //     }
+        // }
 
         // $this->load->view('layout/Header_admin');
         // $this->load->view('admin/Databkasus', $data);
         // $this->load->view('layout/Footer_admin');
     }
 
-    public function hapus_bkasus($id)
-    {
-        if ($this->Model_bkasus->hapus_bkasus($id)) {
-            $this->session->set_flashdata('hapus_bkasus', true);
-        } else {
-            $this->session->set_flashdata('hapus_bkasus', false);
-        }
-        redirect('admin/Databkasus', 'refresh');
-    }
+    // public function hapus_bkasus($id)
+    // {
+    //     if ($this->Model_bkasus->hapus_bkasus($id)) {
+    //         $this->session->set_flashdata('hapus_bkasus', true);
+    //     } else {
+    //         $this->session->set_flashdata('hapus_bkasus', false);
+    //     }
+    //     redirect('admin/Databkasus', 'refresh');
+    // }
 
     //===========================Detail Basis Kasus============================================================
     public function DataDbkasus()
@@ -284,6 +282,32 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('hapus_dbkasus', false);
         }
         redirect('Admin/Databkasus','refresh');
+    }
+
+    //===========================Konsultasi============================================================
+    public function Datakonsultasi()
+    {
+        $data['konsultasi'] = $this->Model_konsultasi->getAlldatakonsultasi();
+
+        $this->load->view('layout/Header_admin');
+        $this->load->view('admin/Datakonsultasi', $data);
+        $this->load->view('layout/Footer_admin');
+    }
+
+    public function DataDkonsultasi($id_konsultasi)
+    {
+        $hasil = $this->Model_konsultasi->getAlldataDkonsultasi($id_konsultasi);
+
+        // $list_penyakit = json_decode($hasil['hasil_penyakit']);
+        $list_gejala = json_decode($hasil['gejala']);
+
+        // $data['hasil_penyakit'] = $this->Penyakit_model->getHasilPenyakit($list_penyakit);
+        $data['gejala'] = $this->Model_gejala->getHasilGejala($list_gejala);
+        
+
+        $this->load->view('layout/Header_admin');
+        $this->load->view('admin/DataDkonsultasi', $data);
+        $this->load->view('layout/Footer_admin');
     }
 
     //=========================================Logout=============================================================

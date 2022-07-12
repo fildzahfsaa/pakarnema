@@ -110,7 +110,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="<?= base_url(); ?>Admin/DataKonsultasi">
               <i class="icon-grid-2 menu-icon "></i>
               <span class="menu-title">Konsultasi</span>
             </a>

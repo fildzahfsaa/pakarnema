@@ -1,11 +1,5 @@
-<?php
-if (!$this->session->userdata('id_user')) {
-    redirect(base_url("Konsultasi"));
-} else {
-    //echo $this->session->userdata('id_user');
-}
 
-?>
+
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
@@ -51,34 +45,46 @@ if (!$this->session->userdata('id_user')) {
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                <h1 class="mb-5" style="margin-bottom: 2rem !important;">Pilih Gejala</h1>
+                <h1 class="mb-5" style="margin-bottom: 2rem !important;">Mulai Konsultasi</h1>
                 <form method="POST" action="<?php echo base_url('Konsultasi/proses_cbr'); ?>">
                     <div class="col-md-12 col-md-offset-2"> 
-                    <?php
-                        $no = "1";
-                        foreach ($data_gejala as $data) {
-                    ?>
-                        <!-- <select id="bobot_user[]" name="bobot_user[]"> 
-                            <option>Pilih Kondisi</option>
-                            <option value="1">Sangat Yakin</option>
-                            <option value="0.8">Kemungkinan Besar</option>
-                            <option value="0.6">Kemungkinan</option>
-                            <option value="0.4">Kemungkinan Kecil</option>
-                        </select>
-                        
-                        <input type="hidden" name="kode_gejala[]" value="<?php echo $data['kode_gejala'] ?>">
-                        <input type="hidden" name="bobot_pakar[]" value="<?php echo $data['bobot_pakar'] ?>"> -->
-
-                        <input type="checkbox" id="gejala[]" name="gejala[]" value="<?php echo $data['kode_gejala'] ?>"><?php echo $data['nama_gejala'] ?>
-                        <select name="kondisi[]" id="">
-                            <option value="0">Pilih Kondisi</option>
-                            <?php foreach ($kondisi as $row_kondisi) : ?>
-                                <option value="<?= $data['kode_gejala'] . '_' . $row_kondisi['id_kondisi']; ?>"><?= $row_kondisi['nama_kondisi']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        </p>
-                    <?php } ?>
-                    </div>
+                        <div class="col-md-12">
+                            <label for="nama">Isikan Nama Anda</label>
+                            <div class="form">
+                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required>
+                            </div>
+                        </div>
+                        &nbsp
+                        <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Gejala
+                                </th>
+                                <th>
+                                    Pilih Kondisi
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                $no = "1";
+                                foreach ($data_gejala as $data) {
+                            ?>
+                            <tr>
+                                <td><input type="checkbox" id="gejala[]" name="gejala[]" value="<?php echo $data['kode_gejala'] ?>"><?php echo $data['nama_gejala'] ?></td>
+                                <td><select name="kondisi[]" id="">
+                                    <option value="0">Pilih Kondisi</option>
+                                    <?php foreach ($kondisi as $row_kondisi) : ?>
+                                        <option value="<?= $data['kode_gejala'] . '_' . $row_kondisi['id_kondisi']; ?>"><?= $row_kondisi['nama_kondisi']; ?></option>
+                                    <?php endforeach; ?>
+                                </select></td>
+                            </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6"></div>

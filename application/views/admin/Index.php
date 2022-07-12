@@ -42,18 +42,11 @@
           <div class="card card-light-blue">
             <div class="card-body">
               <p class="mb-4">Total Data Basis Kasus</p>
-              <p class="fs-30 mb-2"><?= $total_bkasus; ?></p>
+              <p class="fs-30 mb-2"><?= $total_konsultasi; ?></p>
             </div>
           </div>
         </div>
-        <div class="col-md-6 stretch-card transparent">
-          <div class="card card-light-danger">
-            <div class="card-body">
-              <p class="mb-4">Total Konsultasi</p>
-              <p class="fs-30 mb-2">77</p>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -67,7 +60,7 @@
               <form class="forms-sample" action="<?= base_url('Admin/tambah_pakar') ?>" method="post">
                   <div class="form-group">
                       <label for="nama_user">Nama</label>
-                      <input type="text" class="form-control" id="nama_user" name="nama_user" placeholder="Nama ">
+                      <input type="text" class="form-control" id="nama_admin" name="nama_admin" placeholder="Nama ">
                   </div>
                   <div class="form-group">
                       <label for="username">Username</label>
@@ -77,9 +70,9 @@
                       <label for="password">Password</label>
                       <input type="text" class="form-control" id="password" name="password" placeholder="Password">
                   </div>      
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                       <input type="hidden" class="form-control" id="level" name="level" value="Pakar">
-                  </div>    
+                  </div>     -->
                   <button type="submit" class="btn btn-primary mr-2">Submit</button>
               </form>
             </div>
@@ -104,9 +97,6 @@
                         Username
                       </th>
                       <th>
-                        Password
-                      </th>
-                      <th>
                         Aksi
                       </th>
                       </tr>
@@ -115,18 +105,17 @@
                     <?php
                     foreach ($pakar as $p) : ?>
                       <tr>
-                        <td><?= $p["nama_user"]; ?></td>
+                        <td><?= $p["nama_admin"]; ?></td>
                         <td><?= $p["username"]; ?></td>
-                        <td><?= $p["password"]; ?></td>
                         <td>
-                          <a href="<?= base_url(); ?>Admin/edit_pakar/<?= $p['id_user']; ?>" class="btn btn-inverse-info btn-icon" title="Edit Data Akun"><br><i class="ti-pencil" aria-hidden="true"></i></a>
+                          <a href="<?= base_url(); ?>Admin/edit_pakar/<?= $p['id_admin']; ?>" class="btn btn-inverse-info btn-icon" title="Edit Data Akun"><br><i class="ti-pencil" aria-hidden="true"></i></a>
                           <!-- Button trigger modal -->
 
 
-                          <a data-toggle="modal" data-target="#exampleModal-<?= $p['id_user']; ?>" title="Hapus Akun" class="btn btn-inverse-danger btn-icon"><br><i class="ti-trash" aria-hidden="true"> </i></a>
+                          <a data-toggle="modal" data-target="#exampleModal-<?= $p['id_admin']; ?>" title="Hapus Akun" class="btn btn-inverse-danger btn-icon"><br><i class="ti-trash" aria-hidden="true"> </i></a>
 
                           <!-- Modal -->
-                          <div class="modal fade" id="exampleModal-<?= $p['id_user']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal fade" id="exampleModal-<?= $p['id_admin']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                       <div class="modal-header">
@@ -140,7 +129,7 @@
                                       </div>
                                       <div class="modal-footer">
                                           <button type="button" class="btn btn-inverse-secondary btn-fw" data-dismiss="modal" style="padding-right: 15px; padding-bottom: 10px; padding-top: 10px;">Batal</button>
-                                          <button type="button" class="btn btn-inverse-danger btn-fw" style="padding-right: 15px; padding-bottom: 10px; padding-top: 10px;"><a href="<?= base_url(); ?>Admin/hapus_pakar/<?= $p['id_user']; ?>">Hapus</a></button>
+                                          <button type="button" class="btn btn-inverse-danger btn-fw" style="padding-right: 15px; padding-bottom: 10px; padding-top: 10px;"><a href="<?= base_url(); ?>Admin/hapus_pakar/<?= $p['id_admin']; ?>">Hapus</a></button>
                                       </div>
                                   </div>
                               </div>

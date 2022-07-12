@@ -8,10 +8,10 @@
                     <div class="row">
                     <div class="col-12">
                         <form class="forms-sample" action="" method="post">
-                            <input type="hidden" name="id_user" value="<?= $pakar['id_user']; ?>">
+                            <input type="hidden" name="id_admin" value="<?= $pakar['id_admin']; ?>">
                             <div class="form-group">
-                                <label for="nama_user">Nama Pakar</label>
-                                <input type="text" class="form-control" id="nama_user" name="nama_user" value="<?= $pakar['nama_user']; ?>">
+                                <label for="nama_admin">Nama Pakar</label>
+                                <input type="text" class="form-control" id="nama_admin" name="nama_admin" value="<?= $pakar['nama_admin']; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
@@ -21,9 +21,9 @@
                                 <label for="password">Password</label>
                                 <input type="text" class="form-control" id="password" name="password" value="<?= $pakar['password']; ?>">
                             </div>      
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input type="hidden" class="form-control" id="level" name="level" value="<?= $pakar['level']; ?>">
-                            </div>    
+                            </div>     -->
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         </form>
                     </div>

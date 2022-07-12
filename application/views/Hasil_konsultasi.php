@@ -53,7 +53,7 @@ if (!$this->session->userdata('id_user')) {
                 $key = array_search($max, array_column($final, 'hasil'));
                 ?>
                 <h5 class="mt-3" style="font-weight:lighter; font-size:17px; text-transform:uppercase">Hasil yang Didapat,
-                    <span style="font-weight:bold" class="text-success ml-3"> Status <?= $final[$key]['nama_penyakit']; ?> </span>
+                    <span style="font-weight:bold" class="text-success ml-3"> Hama Penyakit <?= $final[$key]['nama_penyakit']; ?> </span>
                 </h5>
 
                 <h5 style="font-weight:lighter; font-size:17px; text-transform:uppercase">
@@ -65,12 +65,25 @@ if (!$this->session->userdata('id_user')) {
                     foreach ($hasil_penyakit as $penyakit) :
                     if ($no == 1) :
                 ?>
-                    Tingkat akurasi hingga <span class="text-primary ml-3" style="font-weight:bold"><?= number_format($penyakit['nilai_perhitungan'] * 100, 2) . '% (' . number_format($penyakit['nilai_perhitungan'], 4) . ')'; ?></span>
+                    Tingkat akurasi hingga <span class="text-primary ml-3" style="font-weight:bold"><?= number_format($penyakit['nilai_perhitungan'] * 100, 2) . ' %'; ?></span>
                 <?php
                     $no++;
                     endif;
                 endforeach;
                 ?>
+                </h5>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-md-8 mb-2">
+            <div class="card shadow mb-4 alert">
+                <?php
+                // Nilai Perhitungan Terbesar
+                $max = max(array_column($final, 'hasil'));
+                $key = array_search($max, array_column($final, 'hasil'));
+                ?>
+                <h5 class="mt-3" style="font-weight:lighter; font-size:17px; text-transform:uppercase">Cara Penanganan : <br><br>
+                    <span style="font-weight:bold" class="text-success ml-3"> <?= $final[$key]['penanganan']; ?> </span>
                 </h5>
             </div>
         </div>

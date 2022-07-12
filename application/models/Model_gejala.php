@@ -107,6 +107,7 @@ class Model_gejala extends CI_Model
 
         return $array_hasil_gejala;
     }
+
 }
 
 ?>

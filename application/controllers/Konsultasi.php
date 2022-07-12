@@ -8,30 +8,30 @@ class Konsultasi extends CI_Controller {
         $this->load->model('Model_kondisi');
         $this->load->model('Model_penyakit');
     }
-    public function index()
-    {
-		$data = [
-			"get_no_user" => $this->Model_konsultasi->get_no_user()
-		];
 
-        $this->load->view('layout/Header');
-        $this->load->view('Konsultasi', $data);
-        $this->load->view('layout/Footer');
-    }
+    // public function index()
+    // {
+	// 	$data = [
+	// 		"get_no_user" => $this->Model_konsultasi->get_no_user()
+	// 	];
 
-	public function tambah_user()
-	{
-		$show = $this->Model_konsultasi;
-		$id_user = $_POST["id_user"];
-		$this->session->set_userdata('id_user', $id_user);
+    //     $this->load->view('layout/Header');
+    //     $this->load->view('Konsultasi', $data);
+    //     $this->load->view('layout/Footer');
+    // }
 
-		if ($show->simpan_user()) {
-			// $this->session->set_flashdata('success', 'Berhasil Menambah Data Faktor Penyakit');
-			redirect(site_url('Konsultasi/konsul'));
-		}
-	}
+	// public function tambah_user()
+	// {
+	// 	$show = $this->Model_konsultasi;
+	// 	$id_user = $_POST["id_user"];
+	// 	$this->session->set_userdata('id_user', $id_user);
 
-	public function konsul()
+	// 	if ($show->simpan_user()) {
+	// 		redirect(site_url('Konsultasi/konsul'));
+	// 	}
+	// }
+
+	public function index()
 	{
 		$data = [
 			"data_gejala"   => $this->Model_gejala->getAlldatagejala(),
@@ -46,12 +46,11 @@ class Konsultasi extends CI_Controller {
 
 	public function proses_cbr()
 	{
-		
-		
 		// Make Validation URL
         if (!$this->input->post('gejala', true)) {
-            redirect('Konsultasi/konsul');
+            redirect('Konsultasi');
         } else {
+            $nama = $this->input->post('nama');
             $data3   = $this->Model_konsultasi->getPenyakit();
 
             // Mulai Perhitungan Metode CBR
@@ -63,6 +62,7 @@ class Konsultasi extends CI_Controller {
                 $penyakit   = $row['kode_penyakit'];
                 $kasus      = $this->Model_konsultasi->getStatus($penyakit);
                 $status     = $kasus['nama_penyakit'];
+                $penanganan     = $kasus['penanganan'];
                 // $dipilih1   = $this->Model_konsultasi->getDataKonsul();
                 $dipilih = count($this->input->post('gejala', true));
                 // $dipilih    = count($dipilih1 , true);
@@ -87,6 +87,7 @@ class Konsultasi extends CI_Controller {
                 $final[$i] = array(
                     'kode_penyakit'      => $penyakit,
                     'nama_penyakit'    => $status,
+                    'penanganan'    => $penanganan,
                     'jml_cocok'     => $jml,
                     'jml_gejala'    => $jml_gejala,
                     'jml_dipilih'   => $dipilih,
@@ -179,14 +180,7 @@ class Konsultasi extends CI_Controller {
                 // * mengurutkan dari nilai tertinggi ke rendah
                 arsort($list_penyakit);
 
-                // echo '<pre>';
-                // var_dump($list_penyakit);
-                // echo '</pre>';
-                // die;
-
                 // * perhitungan CF END
-
-                
             }
 
             // Mengurutkan array hasil descending
@@ -198,11 +192,43 @@ class Konsultasi extends CI_Controller {
             $data['final']      = $final;
             $data['klas']       = $this->Model_konsultasi->getData();
             $data['ciri']       = $this->input->post('kode_gejala', true);
-            
-            // ? tampilkan hasil perhitungan CF
+            $data['nama']       = $nama;
+            // tampilkan hasil perhitungan CF
             $data['hasil_penyakit'] = $this->Model_penyakit->getHasilPenyakit($list_penyakit);
             $data['hasil_gejala'] = $this->Model_gejala->getHasilGejala($list_gejala);
             
+            // ? input hasil perhitungan ke db
+            if ($list_penyakit && $list_gejala) {
+
+                $kode_penyakit = null;
+                $nilai = null;
+                $no = 1;
+
+                // Nilai Perhitungan Terbesar
+                $max = max(array_column($final, 'hasil'));
+                $key2 = array_search($max, array_column($final, 'hasil'));
+
+                foreach ($list_penyakit as $key => $value) {
+                    if ($no == 1) {
+                        $kode_penyakit = $key;
+                        $nilai = $value;
+                    }
+                    $no++;
+                }
+
+                $konsul = array(
+                    'kode_penyakit' => $kode_penyakit,
+                    'nama' => $this->input->post('nama'),
+                    'gejala' => json_encode($list_gejala),
+                    'kemiripan' => $final[$key2]['hasil'] * 100 ,
+                    'kepastian' => $nilai * 100
+                );
+
+                $this->Model_konsultasi->insertHasil($konsul);
+            } else {
+                echo "tidak ada gejala dipilih, tidak ada penyakit terdeteksi";
+                die;
+            }
 
 			$this->load->view('layout/Header');
 			$this->load->view('Hasil_konsultasi', $data);
@@ -218,6 +244,32 @@ class Konsultasi extends CI_Controller {
         }
         array_multisort($sort_col, $dir, $arr);
     }
+
+    // public function simpan_konsultasi()
+    // {
+    //     $this->form_validation->set_rules('nama', 'nama', 'required');
+    //     $this->form_validation->set_rules('kode_penyakit', 'kode_penyakit', 'required');
+    //     $this->form_validation->set_rules('kemiripan', 'kemiripan', 'required');
+    //     $this->form_validation->set_rules('kepastian', 'kepastian', 'required');
+
+    //     if($this->form_validation->run() == FALSE)
+    //     {
+    //         echo "<script>alert('Gagal menambah data');</script>";
+    //         redirect('Admin/Datapenyakit', 'refresh');
+    //     } else {
+    //         $cek1 = $this->db->query("SELECT * FROM penyakit where kode_penyakit='".$this->input->post('kode_penyakit')."'");
+    //         $cek2 = $this->db->query("SELECT * FROM penyakit where nama_penyakit='".$this->input->post('nama_penyakit')."'");
+            
+    //         if($cek1->num_rows()>=1 || $cek2->num_rows()>=1 || $cek1->num_rows()>=1 && $cek2->num_rows()>=1){
+    //             echo "<script>alert('Maaf gagal input data, Data sudah ada,..');</script>";
+    //             redirect('Admin/Datapenyakit', 'refresh');
+    //         }else{
+    //             $this->Model_penyakit->tambah_penyakit();
+    //             echo "<script>alert('Anda berhasil menambah data');</script>";
+    //             redirect('Admin/Datapenyakit', 'refresh');
+    //         }
+    //     }
+    // }
 
     
 

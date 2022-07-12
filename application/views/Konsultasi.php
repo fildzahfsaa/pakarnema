@@ -55,7 +55,7 @@
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama">
+                                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required>
                                         <label for="nama">Nama</label>
                                     </div>
                                 </div>
