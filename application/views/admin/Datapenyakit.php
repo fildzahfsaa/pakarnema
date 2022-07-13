@@ -7,7 +7,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Tambah Data Penyakit Baru</h4>
                     <form class="forms-sample" action="<?= base_url('Admin/tambah_penyakit') ?>" method="post">
-                        <div class="table-responsive" style="display: flex;">        
+                        <div class="table-responsive" style="display: flex;">       
+                            <input type="hidden" class="form-control" id="id_admin" name="id_admin" value="<?= $admin['id_admin']; ?>"> 
                             <div class="form-group col-md-6">
                                 <label for="kode_penyakit">Kode Penyakit</label>
                                 <input type="text" class="form-control" id="kode_penyakit" name="kode_penyakit" placeholder="Kode Penyakit">

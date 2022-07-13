@@ -22,8 +22,8 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="" class="nav-item nav-link active">Home</a>
-                        <a href="About" class="nav-item nav-link">About</a>
-                        <a href="Daftar" class="nav-item nav-link">Daftar Hama Penyakit</a>
+                        <!-- <a href="About" class="nav-item nav-link">About</a>
+                        <a href="Daftar" class="nav-item nav-link">Daftar Hama Penyakit</a> -->
                         <!-- <a href="Kontak" class="nav-item nav-link">Kontak</a> -->
                     </div>
                     <a href="Login" class="btn btn-primary py-2 px-4">Sign In</a>

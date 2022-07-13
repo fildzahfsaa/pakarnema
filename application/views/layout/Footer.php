@@ -84,7 +84,24 @@
         $('#show-btn').show();
         $('#hide-btn').hide();
     }
-</script>
+    </script>
+    <script>
+        <?php
+            $no = "1";
+            foreach ($data_gejala as $data) {
+        ?>
+        $(function(){
+            $(".checkme<?php echo $data['kode_gejala'] ?>").click(function(event){
+                var x = $(this).is(':checked');
+                if(x ==  true){
+                    $(this).parents(".table-responsive").find('.kondisi<?php echo $data['kode_gejala'] ?>').show();
+                }else{
+                    $(this).parents(".table-responsive").find('.kondisi<?php echo $data['kode_gejala'] ?>').hide();
+                }
+            })
+        })
+        <?php } ?>
+    </script>
 </body>
 
 </html>

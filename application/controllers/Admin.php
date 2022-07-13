@@ -75,6 +75,7 @@ class Admin extends CI_Controller {
     public function Datapenyakit()
     {
         $data['penyakit'] = $this->Model_penyakit->getAlldatapenyakit();
+        $data['admin'] = $this->Model_pakar->getIDAdmin();
 
         $this->load->view('layout/Header_admin');
         $this->load->view('admin/Datapenyakit', $data);
@@ -84,6 +85,7 @@ class Admin extends CI_Controller {
     public function tambah_penyakit()
     {
         $this->form_validation->set_rules('kode_penyakit', 'kode_penyakit', 'required');
+        $this->form_validation->set_rules('id_admin', 'id_admin', 'required');
         $this->form_validation->set_rules('nama_penyakit', 'nama_penyakit', 'required');
         $this->form_validation->set_rules('penanganan', 'penanganan', 'required');
 
@@ -108,8 +110,10 @@ class Admin extends CI_Controller {
 
     public function edit_penyakit($kode_penyakit)
     {
+        $data['admin'] = $this->Model_pakar->getIDAdmin();
         $data['penyakit'] = $this->Model_penyakit->getPenyakitByID($kode_penyakit);
         $this->form_validation->set_rules('kode_penyakit', 'kode_penyakit', 'required');
+        $this->form_validation->set_rules('id_admin', 'id_admin', 'required');
         $this->form_validation->set_rules('nama_penyakit', 'nama_penyakit', 'required');
         $this->form_validation->set_rules('penanganan', 'penanganan', 'required');
 
@@ -139,6 +143,7 @@ class Admin extends CI_Controller {
     public function Datagejala()
     {
         $data['gejala'] = $this->Model_gejala->getAlldatagejala();
+        $data['admin'] = $this->Model_pakar->getIDAdmin();
 
         $this->load->view('layout/Header_admin');
         $this->load->view('admin/Datagejala', $data);
@@ -148,6 +153,7 @@ class Admin extends CI_Controller {
     public function tambah_gejala()
     {
         $this->form_validation->set_rules('kode_gejala', 'kode_gejala', 'required');
+        $this->form_validation->set_rules('id_admin', 'id_admin', 'required');
         $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');
         $this->form_validation->set_rules('bobot_pakar', 'bobot_pakar', 'required');
 
@@ -173,6 +179,7 @@ class Admin extends CI_Controller {
 
     public function edit_gejala($kode_gejala)
     {
+        $data['admin'] = $this->Model_pakar->getIDAdmin();
         $data['gejala'] = $this->Model_gejala->getGejalaByID($kode_gejala);
         $this->form_validation->set_rules('kode_gejala', 'kode_gejala', 'required');
         $this->form_validation->set_rules('nama_gejala', 'nama_gejala', 'required');

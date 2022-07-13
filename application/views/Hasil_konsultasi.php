@@ -1,11 +1,3 @@
-<?php
-if (!$this->session->userdata('id_user')) {
-    redirect(base_url("Konsultasi"));
-} else {
-    //echo $this->session->userdata('id_user');
-}
-
-?>
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
@@ -30,8 +22,8 @@ if (!$this->session->userdata('id_user')) {
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="./" class="nav-item nav-link">Home</a>
-                        <a href="About" class="nav-item nav-link">About</a>
-                        <a href="Daftar" class="nav-item nav-link">Daftar Hama Penyakit</a>
+                        <!-- <a href="About" class="nav-item nav-link">About</a>
+                        <a href="Daftar" class="nav-item nav-link">Daftar Hama Penyakit</a> -->
                         <!-- <a href="Kontak" class="nav-item nav-link">Kontak</a> -->
                     </div>
                     <a href="Login" class="btn btn-primary py-2 px-4">Sign In</a>
@@ -40,7 +32,7 @@ if (!$this->session->userdata('id_user')) {
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Mulai Diagnosa</h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Hasil Diagnosa</h1>
                 </div>
             </div>
         </div>

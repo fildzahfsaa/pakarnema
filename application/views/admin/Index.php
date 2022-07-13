@@ -41,7 +41,7 @@
         <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
           <div class="card card-light-blue">
             <div class="card-body">
-              <p class="mb-4">Total Data Basis Kasus</p>
+              <p class="mb-4">Total Data Konsultasi</p>
               <p class="fs-30 mb-2"><?= $total_konsultasi; ?></p>
             </div>
           </div>

@@ -12,6 +12,15 @@ class Model_pakar extends CI_Model
         return $query->result_array();
     }
 
+    public function getIDAdmin()
+    {
+        $this->db->select('id_admin');
+        $this->db->from('admin');
+        $this->db->where('nama_admin', $this->session->userdata('user'));
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
     public function getUserByID($id_admin)
     {
         return $this->db->get_where('admin', ['id_admin' => $id_admin])->row_array();

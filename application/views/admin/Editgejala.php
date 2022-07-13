@@ -9,6 +9,7 @@
                     <form class="forms-sample" action="" method="post">
                         <div class="table-responsive" style="display: flex;">    
                             <!-- <input type="hidden" name="id_gejala" value="<?= $gejala['id_gejala']; ?>">     -->
+                            <input type="hidden" class="form-control" id="id_admin" name="id_admin" value="<?= $admin['id_admin']; ?>">
                             <div class="form-group col-md-4">
                                 <label for="kode_gejala">Kode Gejala</label>
                                 <input type="text" class="form-control" id="kode_gejala" name="kode_gejala" value="<?= $gejala['kode_gejala']; ?>">

@@ -21,6 +21,7 @@ class Model_penyakit extends CI_Model
     {
         $data = [
             'kode_penyakit' => $this->input->post('kode_penyakit', true),
+            'id_admin'    => $this->input->post('id_admin', true),
             'nama_penyakit' => $this->input->post('nama_penyakit', true),
             'penanganan' => $this->input->post('penanganan', true),
         ];
@@ -31,6 +32,7 @@ class Model_penyakit extends CI_Model
     {
         $data = [
             'kode_penyakit' => $this->input->post('kode_penyakit', true),
+            'id_admin'    => $this->input->post('id_admin', true),
             'nama_penyakit' => $this->input->post('nama_penyakit', true),
             'penanganan' => $this->input->post('penanganan', true),
         ];

@@ -7,7 +7,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Tambah Data Gejala Baru</h4>
                     <form class="forms-sample" action="<?= base_url('Admin/tambah_gejala') ?>" method="post">
-                        <div class="table-responsive" style="display: flex;">        
+                        <div class="table-responsive" style="display: flex;">  
+                            <input type="hidden" class="form-control" id="id_admin" name="id_admin" value="<?= $admin['id_admin']; ?>">
                             <div class="form-group col-md-4">
                                 <label for="kode_gejala">Kode Gejala</label>
                                 <input type="text" class="form-control" id="kode_gejala" name="kode_gejala" placeholder="Kode Gejala">

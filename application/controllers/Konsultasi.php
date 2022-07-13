@@ -33,18 +33,20 @@ class Konsultasi extends CI_Controller {
 
 	public function index()
 	{
+        // $datagejala2 = $this->Model_gejala->getAlldatagejala2();
 		$data = [
 			"data_gejala"   => $this->Model_gejala->getAlldatagejala(),
+            // "datagejala2"   => $this->Model_gejala->getAlldatagejala2(),
             "kondisi"       => $this->Model_kondisi->getAllKondisi('all')
 		];
         // $data['kondisi'] = $this->Kondisi_model->getKondisi('all');
 
 		$this->load->view('layout/Header');
-        $this->load->view('Konsultasi2', $data);
+        $this->load->view('Konsultasi', $data);
         $this->load->view('layout/Footer');
 	}
 
-	public function proses_cbr()
+	public function proses()
 	{
 		// Make Validation URL
         if (!$this->input->post('gejala', true)) {
@@ -186,7 +188,8 @@ class Konsultasi extends CI_Controller {
             // Mengurutkan array hasil descending
             $this->array_sort_by_column($final, 'hasil');
 
-            // Passing data ke Views
+            // Passing data ke Views 
+            //cbr
             $data['judul']      = 'Hasil Perhitungan Metode CBR';
             $data['sub_judul']  = 'Hasil Analisa Dengan Metode CBR';
             $data['final']      = $final;

@@ -12,6 +12,14 @@ class Model_gejala extends CI_Model
         return $query->result_array();
     }
 
+    public function getAlldatagejala2()
+    {
+        $this->db->select('*');
+        $this->db->from('gejala');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
     // public function getAllgejala()
     // {
     //     $this->db->select('*');
@@ -28,6 +36,7 @@ class Model_gejala extends CI_Model
     {
         $data = [
             'kode_gejala' => $this->input->post('kode_gejala', true),
+            'id_admin'    => $this->input->post('id_admin', true),
             'nama_gejala' => $this->input->post('nama_gejala', true),
             'bobot_pakar' => $this->input->post('bobot_pakar', true),
         ];
@@ -38,6 +47,7 @@ class Model_gejala extends CI_Model
     {
         $data = [
             'kode_gejala' => $this->input->post('kode_gejala', true),
+            'id_admin'    => $this->input->post('id_admin', true),
             'nama_gejala' => $this->input->post('nama_gejala', true),
             'bobot_pakar' => $this->input->post('bobot_pakar', true),
         ];
